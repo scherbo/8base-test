@@ -14,6 +14,9 @@ import { Brokers } from './routes/brokers';
 import { Customers } from './routes/customers';
 import { Properties } from './routes/properties';
 import { Listings } from './routes/listings';
+import { Clients } from './routes/clients';
+
+import { Client } from './routes/client';
 
 const { REACT_APP_8BASE_API_ENDPOINT } = process.env;
 
@@ -42,13 +45,16 @@ class Application extends React.PureComponent {
               <Nav.Item icon="Customers" to="/customers" label="Customers" />
               <Nav.Item icon="House" to="/properties" label="Properties" />
               <Nav.Item icon="Contract" to="/listings" label="Listings" />
+              <Nav.Item icon="Group" to="/clients" label="Clients" />
             </Nav.Plate>
             <ContentPlate>
               <Switch>
+                <ProtectedRoute path="/client/:id" component={Client} />
                 <ProtectedRoute exact path="/brokers" component={Brokers} />
                 <ProtectedRoute exact path="/customers" component={Customers} />
                 <ProtectedRoute exact path="/properties" component={Properties} />
                 <ProtectedRoute exact path="/listings" component={Listings} />
+                <ProtectedRoute exact path="/clients" component={Clients} />
                 <Redirect to="/brokers" />
               </Switch>
             </ContentPlate>
