@@ -1,7 +1,18 @@
 import React from 'react';
-import { Form, Field } from '@8base/forms';
-import { Dialog, Grid, Button, SelectField, ModalContext, InputField, DateInputField, DateInput } from '@8base/boost';
+import { Form, Field, FieldArray } from '@8base/forms';
+import {
+  Dialog,
+  Grid,
+  Button,
+  SelectField,
+  ModalContext,
+  InputField,
+  DateInputField,
+  DateInput,
+  Icon,
+} from '@8base/boost';
 import { Query, graphql } from 'react-apollo';
+import { css } from '@emotion/core';
 
 import * as sharedGraphQL from 'shared/graphql';
 import { TOAST_SUCCESS_MESSAGE } from 'shared/constants';
@@ -10,10 +21,6 @@ const ORDER_CREATE_DIALOG_ID = 'ORDER_CREATE_DIALOG_ID';
 
 class OrderCreateDialog extends React.Component {
   static contextType = ModalContext;
-
-  componentDidMount() {
-    console.log(this.props);
-  }
 
   onSubmit = async data => {
     await this.props.orderCreate({ variables: { data } });
@@ -27,7 +34,7 @@ class OrderCreateDialog extends React.Component {
 
   renderFormContent = ({ handleSubmit, invalid, submitting, pristine }) => (
     <form onSubmit={handleSubmit}>
-      <Dialog.Header title="New Client" onClose={this.onClose} />
+      <Dialog.Header title="New Order" onClose={this.onClose} />
       <Dialog.Body scrollable>
         <Grid.Layout gap="sm" stretch>
           <Grid.Box>
@@ -55,22 +62,54 @@ class OrderCreateDialog extends React.Component {
           <Grid.Box>
             <Query query={sharedGraphQL.PRODUCTS_LIST_QUERY}>
               {({ data, loading }) => (
-                <Field
-                  name="orderItems"
-                  label="Order Items"
-                  placeholder="Select a product"
-                  component={SelectField}
-                  loading={loading}
-                  options={
-                    loading
-                      ? []
-                      : (data.productsList.items || []).map(product => ({
-                          value: product.id,
-                          label: `${product.name} ${product.price}`,
-                        }))
-                  }
-                  stretch
-                />
+                <FieldArray name="orderItems">
+                  {({ fields }) => (
+                    <>
+                      {fields.map((name, index) => (
+                        <Grid.Layout
+                          inline
+                          gap="xs"
+                          columns="minmax(200px, 1fr) 75px auto"
+                          key={name}
+                          css={css`
+                            &:not(:last-child) {
+                              margin-bottom: 8px;
+                            }
+                          `}
+                        >
+                          <Grid.Box>
+                            <Field
+                              name={`${name}.product`}
+                              label="Order Items"
+                              placeholder="Select a product"
+                              component={SelectField}
+                              loading={loading}
+                              options={
+                                loading
+                                  ? []
+                                  : (data.productsList.items || []).map(product => ({
+                                      value: product.id,
+                                      label: product.name,
+                                    }))
+                              }
+                            />
+                          </Grid.Box>
+                          <Grid.Box>
+                            <Field name={`${name}.quantity`} label="Quantity" component={InputField} />
+                          </Grid.Box>
+                          <Grid.Box alignSelf="end">
+                            <Button squared size="sm" color="danger" onClick={() => fields.remove(index)}>
+                              <Icon name="Trashcan" />
+                            </Button>
+                          </Grid.Box>
+                        </Grid.Layout>
+                      ))}
+                      <Button size="sm" onClick={() => fields.push({})}>
+                        Add
+                      </Button>
+                    </>
+                  )}
+                </FieldArray>
               )}
             </Query>
           </Grid.Box>
