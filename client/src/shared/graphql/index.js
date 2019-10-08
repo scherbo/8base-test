@@ -140,7 +140,35 @@ export const PRODUCTS_LIST_QUERY = gql`
         id
         name
         price
+        description
+        picture {
+          downloadUrl
+        }
       }
+    }
+  }
+`;
+
+export const PRODUCT_CREATE_MUTATION = gql`
+  mutation ProductCreate($data: ProductCreateInput!) {
+    productCreate(data: $data) {
+      id
+    }
+  }
+`;
+
+export const PRODUCT_DELETE_MUTATION = gql`
+  mutation ProductDelete($id: ID!) {
+    productDelete(data: { id: $id }) {
+      success
+    }
+  }
+`;
+
+export const PRODUCT_UPDATE_MUTATION = gql`
+  mutation ProductUpdate($data: ProductUpdateInput!) {
+    productUpdate(data: $data) {
+      id
     }
   }
 `;
