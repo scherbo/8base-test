@@ -15,6 +15,7 @@ import { Customers } from './routes/customers';
 import { Properties } from './routes/properties';
 import { Listings } from './routes/listings';
 import { Clients } from './routes/clients';
+import { Orders } from './routes/orders';
 
 import { Client } from './routes/client';
 
@@ -23,15 +24,18 @@ const { REACT_APP_8BASE_API_ENDPOINT } = process.env;
 const AUTH0_CLIENT_ID = 'qGHZVu5CxY5klivm28OPLjopvsYp0baD';
 const AUTH0_CLIENT_DOMAIN = 'auth.8base.com';
 
-const authClient = Auth.createClient({
-  strategy: AUTH_STRATEGIES.WEB_AUTH0,
-  subscribable: true,
-}, {
-  clientId: AUTH0_CLIENT_ID,
-  domain: AUTH0_CLIENT_DOMAIN,
-  redirectUri: `${window.location.origin}/auth/callback`,
-  logoutRedirectUri: `${window.location.origin}/auth`,
-});
+const authClient = Auth.createClient(
+  {
+    strategy: AUTH_STRATEGIES.WEB_AUTH0,
+    subscribable: true,
+  },
+  {
+    clientId: AUTH0_CLIENT_ID,
+    domain: AUTH0_CLIENT_DOMAIN,
+    redirectUri: `${window.location.origin}/auth/callback`,
+    logoutRedirectUri: `${window.location.origin}/auth`,
+  }
+);
 
 class Application extends React.PureComponent {
   renderContent = ({ loading }) => (
@@ -46,6 +50,7 @@ class Application extends React.PureComponent {
               <Nav.Item icon="House" to="/properties" label="Properties" />
               <Nav.Item icon="Contract" to="/listings" label="Listings" />
               <Nav.Item icon="Group" to="/clients" label="Clients" />
+              <Nav.Item icon="Contract" to="/orders" label="Orders" />
             </Nav.Plate>
             <ContentPlate>
               <Switch>
@@ -55,6 +60,7 @@ class Application extends React.PureComponent {
                 <ProtectedRoute exact path="/properties" component={Properties} />
                 <ProtectedRoute exact path="/listings" component={Listings} />
                 <ProtectedRoute exact path="/clients" component={Clients} />
+                <ProtectedRoute exact path="/orders" component={Orders} />
                 <Redirect to="/brokers" />
               </Switch>
             </ContentPlate>
