@@ -69,7 +69,7 @@ let OrdersTable = ({ orders, openModal, closeModal }) => {
                   {({ closeDropdown }) => (
                     <Menu>
                       <Menu.Item>
-                        <Link to={`/client/${order.id}`}>Open</Link>
+                        <Link to={`/order/${order.id}`}>Open</Link>
                       </Menu.Item>
                       <Menu.Item
                         onClick={() => {
