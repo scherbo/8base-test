@@ -10,10 +10,6 @@ import { TOAST_SUCCESS_MESSAGE } from 'shared/constants';
 
 import { MainPlate, ContentPlate, Nav } from './components';
 import { Auth as AuthCallback } from './routes/auth';
-import { Brokers } from './routes/brokers';
-import { Customers } from './routes/customers';
-import { Properties } from './routes/properties';
-import { Listings } from './routes/listings';
 import { Clients } from './routes/clients';
 import { Orders } from './routes/orders';
 
@@ -46,10 +42,6 @@ class Application extends React.PureComponent {
         <Route>
           <MainPlate>
             <Nav.Plate color="BLUE">
-              <Nav.Item icon="Group" to="/brokers" label="Brokers" />
-              <Nav.Item icon="Customers" to="/customers" label="Customers" />
-              <Nav.Item icon="House" to="/properties" label="Properties" />
-              <Nav.Item icon="Contract" to="/listings" label="Listings" />
               <Nav.Item icon="Group" to="/clients" label="Clients" />
               <Nav.Item icon="Contract" to="/orders" label="Orders" />
             </Nav.Plate>
@@ -57,10 +49,6 @@ class Application extends React.PureComponent {
               <Switch>
                 <ProtectedRoute path="/client/:id" component={Client} />
                 <ProtectedRoute path="/order/:id" component={Order} />
-                <ProtectedRoute exact path="/brokers" component={Brokers} />
-                <ProtectedRoute exact path="/customers" component={Customers} />
-                <ProtectedRoute exact path="/properties" component={Properties} />
-                <ProtectedRoute exact path="/listings" component={Listings} />
                 <ProtectedRoute exact path="/clients" component={Clients} />
                 <ProtectedRoute exact path="/orders" component={Orders} />
                 <Redirect to="/brokers" />
