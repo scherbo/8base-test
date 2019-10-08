@@ -101,6 +101,33 @@ export const ORDERS_LIST_QUERY = gql`
   }
 `;
 
+export const ORDER_QUERY = gql`
+  query Order($id: ID!) {
+    order(id: $id) {
+      id
+      address
+      deliveryDt
+      comment
+      status
+      client {
+        id
+        firstName
+      }
+      orderItems {
+        items {
+          id
+          quantity
+          product {
+            id
+            name
+            price
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const ORDER_CREATE_MUTATION = gql`
   mutation OrderCreate($data: OrderCreateInput!) {
     orderCreate(data: $data) {
