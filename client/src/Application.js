@@ -12,6 +12,7 @@ import { MainPlate, ContentPlate, Nav } from './components';
 import { Auth as AuthCallback } from './routes/auth';
 import { Clients } from './routes/clients';
 import { Orders } from './routes/orders';
+import { Products } from './routes/products';
 
 import { Client } from './routes/client';
 import { Order } from './routes/order';
@@ -44,6 +45,7 @@ class Application extends React.PureComponent {
             <Nav.Plate color="BLUE">
               <Nav.Item icon="Group" to="/clients" label="Clients" />
               <Nav.Item icon="Contract" to="/orders" label="Orders" />
+              <Nav.Item icon="Planet" to="/products" label="Products" />
             </Nav.Plate>
             <ContentPlate>
               <Switch>
@@ -51,6 +53,7 @@ class Application extends React.PureComponent {
                 <ProtectedRoute path="/order/:id" component={Order} />
                 <ProtectedRoute exact path="/clients" component={Clients} />
                 <ProtectedRoute exact path="/orders" component={Orders} />
+                <ProtectedRoute exact path="/products" component={Products} />
                 <Redirect to="/brokers" />
               </Switch>
             </ContentPlate>
