@@ -8,6 +8,9 @@ export const BROKER_CREATE_MUTATION = gql`
   }
 `;
 
+/*
+  STARTED HERE
+*/
 export const CLIENTS_LIST_QUERY = gql`
   query ClientsList {
     clientsList {
@@ -70,6 +73,64 @@ export const CLIENT_DELETE_MUTATION = gql`
     }
   }
 `;
+
+export const ORDERS_LIST_QUERY = gql`
+  query OrdersList {
+    ordersList {
+      items {
+        id
+        client {
+          id
+          firstName
+        }
+        address
+        deliveryDt
+        comment
+        status
+        orderItems {
+          items {
+            quantity
+            product {
+              name
+              price
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const ORDER_CREATE_MUTATION = gql`
+  mutation OrderCreate($data: OrderCreateInput!) {
+    orderCreate(data: $data) {
+      id
+    }
+  }
+`;
+
+export const ORDER_DELETE_MUTATION = gql`
+  mutation OrderDelete($id: ID!) {
+    orderDelete(data: { id: $id }) {
+      success
+    }
+  }
+`;
+
+export const PRODUCTS_LIST_QUERY = gql`
+  query ProductsList {
+    productsList {
+      items {
+        id
+        name
+        price
+      }
+    }
+  }
+`;
+/*
+  FINISHED HERE
+*/
 
 export const USERS_LIST_QUERY = gql`
   query UsersList {
@@ -193,21 +254,21 @@ export const LISTINGS_LIST_QUERY = gql`
           id
           user {
             firstName
-            lastName 
+            lastName
           }
         }
         buyer {
           id
           user {
             firstName
-            lastName 
+            lastName
           }
         }
         seller {
           id
           user {
             firstName
-            lastName 
+            lastName
           }
         }
         documents {
