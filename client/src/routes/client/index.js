@@ -53,7 +53,7 @@ export const Client = withRouter(({ match }) => {
         <Heading type='h4'>Client Info:</Heading>
         {fields.map(field => (
           <ClientInfoSpacer>
-            <Label text={field.label} />
+            <Label kind='secondary' text={field.label} />
             <Paragraph>{data.client[field.hidden]}</Paragraph>
           </ClientInfoSpacer>
         ))}
