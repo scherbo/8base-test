@@ -54,7 +54,7 @@ class Application extends React.PureComponent {
                 <ProtectedRoute exact path="/clients" component={Clients} />
                 <ProtectedRoute exact path="/orders" component={Orders} />
                 <ProtectedRoute exact path="/products" component={Products} />
-                <Redirect to="/brokers" />
+                <Redirect to="/clients" />
               </Switch>
             </ContentPlate>
           </MainPlate>
