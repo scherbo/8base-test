@@ -98,13 +98,13 @@ class OrderCreateDialog extends React.Component {
                             <Field name={`${name}.quantity`} label="Quantity" component={InputField} />
                           </Grid.Box>
                           <Grid.Box alignSelf="end">
-                            <Button squared size="sm" color="danger" onClick={() => fields.remove(index)}>
+                            <Button type="button" size="sm" color="danger" squared onClick={() => fields.remove(index)}>
                               <Icon name="Trashcan" />
                             </Button>
                           </Grid.Box>
                         </Grid.Layout>
                       ))}
-                      <Button size="sm" onClick={() => fields.push({})}>
+                      <Button type="button" size="sm" onClick={() => fields.push({})}>
                         Add
                       </Button>
                     </>
